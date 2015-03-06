@@ -33,9 +33,9 @@ An `array` of "steps" is passed to the TourGuideMixin. Each "step" represents on
 
 ```json
 {
-  'text': 'The helpful tip or information the user should read at this step.',
-  'element': 'A jQuery selector for the element which the step relates to.'
-  'position': 'Where to position the indicator in relation to the element.'
+  "text": "The helpful tip or information the user should read at this step.",
+  "element": "A jQuery selector for the element which the step relates to.",
+  "position": "Where to position the indicator in relation to the element."
 }
 ```
 
