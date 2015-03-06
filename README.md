@@ -1,5 +1,5 @@
-react-tour-guide
-=================
+react-tour-guide [![npm version](https://badge.fury.io/js/react-tour-guide.svg)](http://badge.fury.io/js/react-tour-guide)
+==========================================================================================================================
 
 A ReactJS mixin to give new users a popup-based tour of your application.
 
@@ -16,7 +16,7 @@ var tour = [
 
 ];
 
-var InnerApp = React.createClass({
+var App = React.createClass({
 
   mixins: [TourGuideMixin(tour)],
 
