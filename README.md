@@ -10,7 +10,7 @@ A ReactJS mixin to give new users a popup-based tour of your application.
 1. `npm install --save react-tour-guide`
 2. `var TourGuideMixin = require('react-tour-guide').Mixin`
 
-```
+```javascript
 var TourGuideMixin = require('react-tour-guide').Mixin;
 var tour = [
 
@@ -31,7 +31,7 @@ var InnerApp = React.createClass({
 
 An `array` of "steps" is passed to the TourGuideMixin. Each "step" represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
 
-```
+```json
 {
   'text': 'The helpful tip or information the user should read at this step.',
   'element': 'A jQuery selector for the element which the step relates to.'
@@ -49,12 +49,12 @@ The guided tour consists of two main elements for each step: an `indicator` and 
 
 ##### Indicator
 
-```
+```html
 <div />
 ```
 
 ##### Tooltip
 
-```
+```html
 <div />
 ```
