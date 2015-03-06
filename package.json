@@ -1,0 +1,20 @@
+{
+  "name": "react-tour-guide",
+  "version": "0.0.1",
+  "author": "Jake Marsh <jakemmarsh@gmail.com>",
+  "description": "A ReactJS mixin to give new users a popup-based tour of your application.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jakemmarsh/react-tour-guide.git"
+  },
+  "private": false,
+  "license": "MIT",
+  "keywords": [
+    "ReactJS",
+    "react",
+    "tour"
+  ],
+  "engines": {
+    "node": ">=0.12.x"
+  }
+}
