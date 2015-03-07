@@ -27,10 +27,13 @@ var tour = {
     }
   ]
 };
+var cb = function() {
+  console.log('User has completed tour!');
+};
 
 var App = React.createClass({
 
-  mixins: [TourGuideMixin(tour)],
+  mixins: [TourGuideMixin(tour, cb)],
 
   ...
 
@@ -56,6 +59,12 @@ Each "step" in the array represents one indicator and tooltip that a user must c
 ```
 
 Positions can be chosen from: `top-left`, `top-right`, `right`, `bottom-right`, `bottom`, `bottom-left`, `left`, and `center`. This defaults to `center`.
+
+---
+
+### Completion Callback
+
+An optional callback may be passed as the second parameter to `TourGuideMixin`, which will be called once the current user has completed all the steps of your tour.
 
 ---
 
