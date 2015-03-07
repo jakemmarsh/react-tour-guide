@@ -1,6 +1,6 @@
 {
   "name": "react-tour-guide",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Jake Marsh <jakemmarsh@gmail.com>",
   "description": "A ReactJS mixin to give new users a popup-based tour of your application.",
   "repository": {
@@ -12,7 +12,9 @@
   "keywords": [
     "ReactJS",
     "react",
-    "tour"
+    "tour",
+    "walkthrough",
+    "guide"
   ],
   "engines": {
     "node": ">=0.12.x"
