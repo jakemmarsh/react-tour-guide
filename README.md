@@ -87,7 +87,8 @@ The guided tour consists of two main elements for each step: an `indicator` and 
 ##### Tooltip
 
 ```html
-<div class="tour-backdrop">
+<div>
+  <div class="tour-backdrop"></div>
   <div class="tour-tooltip">
     <p>{The step's text goes here.}</p>
     <div class="tour-btn close">Close</div>
