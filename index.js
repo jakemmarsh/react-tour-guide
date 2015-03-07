@@ -1,11 +1,12 @@
+
 'use strict';
 
 module.exports = {
 
-  Mixin: require('./lib/Mixin'),
+  Mixin: require('./lib/js/Mixin'),
 
-  Indicator: require('./lib/Indicator'),
+  Indicator: require('./lib/js/Indicator'),
 
-  Tooltip: require('./lib/Tooltip')
+  Tooltip: require('./lib/js/Tooltip')
 
 };

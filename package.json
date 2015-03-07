@@ -16,5 +16,8 @@
   ],
   "engines": {
     "node": ">=0.12.x"
+  },
+  "dependencies": {
+    "jquery": "^2.1.3"
   }
 }

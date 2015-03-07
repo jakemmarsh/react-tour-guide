@@ -12,9 +12,21 @@ A ReactJS mixin to give new users a popup-based tour of your application.
 
 ```javascript
 var TourGuideMixin = require('react-tour-guide').Mixin;
-var tour = [
-
-];
+var tour = {
+  pointSize: 30,
+  steps: [
+    {
+      text: 'This is the first step in the tour.',
+      element: 'header',
+      position: 'bottom'
+    },
+    {
+      text: 'This is the second step in the tour.',
+      element: '.navigation',
+      position: 'right'
+    }
+  ]
+};
 
 var App = React.createClass({
 
@@ -29,7 +41,11 @@ var App = React.createClass({
 
 ### Options
 
-An `array` of "steps" is passed to the TourGuideMixin. Each "step" represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
+A Javascript object is passed to the TourGuideMixin to specify options, as well as the steps of your tour as an array. The options are:
+
+- `pointSize` (int): the size (in pixels) that you want the Indicator to be. Defaults to `30`.
+
+Each "step" in the array represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
 
 ```json
 {
@@ -43,18 +59,25 @@ Positions can be chosen from: `top-left`, `top-right`, `right`, `bottom-right`, 
 
 ---
 
-### HTML Structure
+### Styling
+
+Some basic styling is provided in `/lib/styles/tour-guide.css`. This can either be included directly in your project, or used as a base for your own custom styles. Below, the HTML structure of the tour is also outlined for custom styling.
 
 The guided tour consists of two main elements for each step: an `indicator` and a `tooltip`. An indicator is a flashing element positioned on a specific element on the page, cueing the user to click. Upon click, the associated tooltip is triggered which the user must then read and dismiss.
 
 ##### Indicator
 
 ```html
-<div />
+<div class="tour-indicator"></div>
 ```
 
 ##### Tooltip
 
 ```html
-<div />
+<div class="tour-backdrop">
+  <div class="tour-tooltip">
+    <p>{The step's text goes here.}</p>
+    <div class="tour-btn close">Close</div>
+  </div>
+</div>
 ```
