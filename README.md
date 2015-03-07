@@ -13,7 +13,9 @@ A ReactJS mixin to give new users a popup-based tour of your application.
 ```javascript
 var TourGuideMixin = require('react-tour-guide').Mixin;
 var tour = {
-  pointSize: 30,
+  scrollToSteps: true,
+  indicatorSize: 30,
+  tooltipWidth: 250,
   steps: [
     {
       text: 'This is the first step in the tour.',
@@ -44,9 +46,11 @@ var App = React.createClass({
 
 ### Options
 
-A Javascript object is passed to the TourGuideMixin to specify options, as well as the steps of your tour as an array. The options are:
+A Javascript object is passed to the `TourGuideMixin` to specify options, as well as the steps of your tour as an array. The options are:
 
-- `pointSize` (int): the size (in pixels) that you want the Indicator to be. Defaults to `30`.
+- `scrollToSteps` (bool): if true, the page will be automatically scrolled to the next indicator (if one exists) after a tooltip is dismissed. Defaults to `true`.
+- `indicatorSize` (int): the size (in pixels) that you want the Indicator to be. Defaults to `30`.
+- `tooltipWidth` (int): the width (in pixels) that you want each tooltip to be. Defaults to `250`.
 
 Each "step" in the array represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
 

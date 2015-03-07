@@ -1,7 +1,10 @@
 .tour-indicator {
   height: 30px;
   width: 30px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
   border-radius: 100%;
+
   background-color: #ff0000;
   cursor: pointer;
 
@@ -101,7 +104,7 @@
 }
 
 .tour-backdrop {
-  z-index: 1000;
+  z-index: 998; /* one below z-index of tour-toolip (999) */
   position: fixed;
   top: 0;
   right: 0;
