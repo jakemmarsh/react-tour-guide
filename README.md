@@ -46,6 +46,7 @@ var App = React.createClass({
 
 A Javascript object is passed to the `TourGuideMixin` to specify options, as well as the steps of your tour as an array. The options are:
 
+- `startIndex` (int): the index from which to begin the steps of the tour. This can be retrieved and saved via `getUserTourProgress` (discussed below), in order to be specified when a user returns. Defaults to `0`.
 - `scrollToSteps` (bool): if true, the page will be automatically scrolled to the next indicator (if one exists) after a tooltip is dismissed. Defaults to `true`.
 
 Each "step" in the array represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
@@ -65,6 +66,25 @@ Positions can be chosen from: `top-left`, `top-right`, `right`, `bottom-right`, 
 ### Completion Callback
 
 An optional callback may be passed as the second parameter to `TourGuideMixin`, which will be called once the current user has completed all the steps of your tour.
+
+---
+
+### Getting the User's Current Progress
+
+Upon including the mixin, the function `getUserTourProgress` will be available to your component. At any point, this method can be called to retrieve information about the current user's progress through the guided tour. The object returned looks like this:
+
+```json
+{
+  "index": 2,
+  "percentageComplete": 50,
+  "step": {
+    "text": "...",
+    "element": "...",
+    "position": "..."
+  }
+}
+```
+This information can be used to save a user's progress upon navigation from the page or application, allowing you to return them back to their correct spot when they visit next using the `startIndex` option (discussed above).
 
 ---
 

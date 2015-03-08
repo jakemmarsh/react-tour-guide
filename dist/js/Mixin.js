@@ -14,6 +14,7 @@ module.exports = function(settings, done) {
   var mixin = {
 
     settings: $.extend({
+      startIndex: 0,
       scrollToSteps: true,
       steps: []
     }, settings),
@@ -22,7 +23,7 @@ module.exports = function(settings, done) {
 
     getInitialState: function() {
       return {
-        currentIndex: 0,
+        currentIndex: this.settings.startIndex,
         showTooltip: false,
         xPos: -1000,
         yPos: -1000
@@ -73,6 +74,14 @@ module.exports = function(settings, done) {
       this._unrenderLayer();
       document.body.removeChild(this._target);
       $(window).off('resize', this.calculatePlacement);
+    },
+
+    getUserTourProgress: function() {
+      return {
+        index: this.state.currentIndex,
+        percentageComplete: (this.state.currentIndex/this.settings.steps.length)*100,
+        step: this.settings.steps[this.state.currentIndex]
+      };
     },
 
     preventWindowOverflow: function(value, axis, elWidth, elHeight) {
