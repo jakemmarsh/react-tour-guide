@@ -58,11 +58,13 @@ module.exports = function(settings, done) {
         document.body.appendChild(this._target);
         this._renderLayer();
       }
+      $(window).on('resize', this.componentDidUpdate.bind(this));
     },
 
     componentWillUnmount: function() {
       this._unrenderLayer();
       document.body.removeChild(this._target);
+      $(window).off('resize', this.componentDidUpdate.bind(this));
     },
 
     preventWindowOverflow: function(type, value, axis) {

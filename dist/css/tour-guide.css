@@ -116,6 +116,7 @@
 }
 
 .tour-tooltip {
+  z-index: 999;
   width: 200px;
   background-color: #ffffff;
   color: #545454;
