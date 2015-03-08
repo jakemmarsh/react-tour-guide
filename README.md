@@ -74,7 +74,7 @@ An optional callback may be passed as the second parameter to `TourGuideMixin`, 
 
 ### Styling
 
-Some basic styling is provided in `/lib/styles/tour-guide.css`. This can either be included directly in your project, or used as a base for your own custom styles. Below, the HTML structure of the tour is also outlined for custom styling.
+Some basic styling is provided in `/dist/css/tour-guide.css`. This can either be included directly in your project, or used as a base for your own custom styles. Below, the HTML structure of the tour is also outlined for custom styling.
 
 The guided tour consists of two main elements for each step: an `indicator` and a `tooltip`. An indicator is a flashing element positioned on a specific element on the page, cueing the user to click. Upon click, the associated tooltip is triggered which the user must then read and dismiss.
 
