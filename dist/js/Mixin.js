@@ -176,8 +176,8 @@ module.exports = function(settings, done) {
     renderCurrentStep: function() {
       var element = null;
       var currentStep = this.settings.steps[this.state.currentIndex];
-      var $target = $(currentStep.element);
-      var cssPosition = $target.css('position');
+      var $target = currentStep && currentStep.element ? $(currentStep.element) : null;
+      var cssPosition = $target ? $target.css('position') : null;
 
       if ( $target && $target.length ) {
         if ( this.state.showTooltip ) {
