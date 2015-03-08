@@ -13,6 +13,7 @@ A ReactJS mixin to give new users a popup-based tour of your application. An exa
 ```javascript
 var TourGuideMixin = require('react-tour-guide').Mixin;
 var tour = {
+  startIndex: 0,
   scrollToSteps: true,
   steps: [
     {
