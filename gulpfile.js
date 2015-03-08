@@ -26,6 +26,13 @@ gulp.task('scripts', function() {
 
 });
 
+gulp.task('dev', function() {
+
+  gulp.watch('./lib/js/**/*.js',   ['scripts']);
+  gulp.watch('./lib/styles/**/*.css', ['styles']);
+
+});
+
 gulp.task('build', ['clean'], function() {
 
   return runSequence(['styles', 'scripts']);
