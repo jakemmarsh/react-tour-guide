@@ -177,20 +177,20 @@ module.exports = function(settings, done) {
 
       if ( this.state.showTooltip ) {
         element = (
-          <Tooltip cssPosition={cssPosition}
-                   xPos={placement.tooltip.x}
-                   yPos={placement.tooltip.y}
-                   width={this.settings.tooltipWidth}
-                   text={currentStep.text}
-                   closeTooltip={this.closeTooltip} />
+          React.createElement(Tooltip, {cssPosition: cssPosition, 
+                   xPos: placement.tooltip.x, 
+                   yPos: placement.tooltip.y, 
+                   width: this.settings.tooltipWidth, 
+                   text: currentStep.text, 
+                   closeTooltip: this.closeTooltip})
         );
       } else {
         element = (
-          <Indicator cssPosition={cssPosition}
-                     xPos={placement.indicator.x}
-                     yPos={placement.indicator.y}
-                     size={this.settings.indicatorSize}
-                     handleIndicatorClick={this.handleIndicatorClick} />
+          React.createElement(Indicator, {cssPosition: cssPosition, 
+                     xPos: placement.indicator.x, 
+                     yPos: placement.indicator.y, 
+                     size: this.settings.indicatorSize, 
+                     handleIndicatorClick: this.handleIndicatorClick})
         );
       }
 

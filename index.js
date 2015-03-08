@@ -3,10 +3,10 @@
 
 module.exports = {
 
-  Mixin: require('./lib/js/Mixin'),
+  Mixin: require('./dist/js/Mixin'),
 
-  Indicator: require('./lib/js/Indicator'),
+  Indicator: require('./dist/js/Indicator'),
 
-  Tooltip: require('./lib/js/Tooltip')
+  Tooltip: require('./dist/js/Tooltip')
 
 };
