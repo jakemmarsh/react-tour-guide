@@ -14,8 +14,6 @@ A ReactJS mixin to give new users a popup-based tour of your application. An exa
 var TourGuideMixin = require('react-tour-guide').Mixin;
 var tour = {
   scrollToSteps: true,
-  indicatorSize: 30,
-  tooltipWidth: 250,
   steps: [
     {
       text: 'This is the first step in the tour.',
@@ -49,8 +47,6 @@ var App = React.createClass({
 A Javascript object is passed to the `TourGuideMixin` to specify options, as well as the steps of your tour as an array. The options are:
 
 - `scrollToSteps` (bool): if true, the page will be automatically scrolled to the next indicator (if one exists) after a tooltip is dismissed. Defaults to `true`.
-- `indicatorSize` (int): the size (in pixels) that you want the Indicator to be. Defaults to `30`.
-- `tooltipWidth` (int): the width (in pixels) that you want each tooltip to be. Defaults to `250`.
 
 Each "step" in the array represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
 
@@ -77,6 +73,8 @@ An optional callback may be passed as the second parameter to `TourGuideMixin`, 
 Some basic styling is provided in `/dist/css/tour-guide.css`. This can either be included directly in your project, or used as a base for your own custom styles. Below, the HTML structure of the tour is also outlined for custom styling.
 
 The guided tour consists of two main elements for each step: an `indicator` and a `tooltip`. An indicator is a flashing element positioned on a specific element on the page, cueing the user to click. Upon click, the associated tooltip is triggered which the user must then read and dismiss.
+
+**Note:** Elements are dynamically positioned by initially setting their `top` and `left` CSS properties to `-1000px`. Once they have been initially rendered and measured, they are then positioned correctly. Animations on these CSS properties should be avoided.
 
 ##### Indicator
 

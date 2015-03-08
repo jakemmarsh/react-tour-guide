@@ -15,8 +15,6 @@ module.exports = function(settings, done) {
 
     settings: $.extend({
       scrollToSteps: true,
-      indicatorSize: 30,
-      tooltipWidth: 250,
       steps: []
     }, settings),
 
@@ -25,7 +23,9 @@ module.exports = function(settings, done) {
     getInitialState: function() {
       return {
         currentIndex: 0,
-        showTooltip: false
+        showTooltip: false,
+        xPos: -1000,
+        yPos: -1000
       };
     },
 
@@ -33,17 +33,25 @@ module.exports = function(settings, done) {
       // By calling this method in componentDidMount() and componentDidUpdate(), you're effectively
       // creating a "wormhole" that funnels React's hierarchical updates through to a DOM node on an
       // entirely different part of the page.
+      this.setState({ xPos: -1000, yPos: -1000 });
       React.render(this.renderCurrentStep(), this._target);
+      this.calculatePlacement();
     },
 
     _unrenderLayer: function() {
       React.unmountComponentAtNode(this._target);
     },
 
-    componentDidUpdate: function() {
-      if ( this.settings.steps[this.state.currentIndex] ) {
+    componentDidUpdate: function(prevProps, prevState) {
+      var hasNewIndex = this.state.currentIndex !== prevState.currentIndex;
+      var hasNewStep = !!this.settings.steps[this.state.currentIndex];
+      var hasNewX = this.state.xPos !== prevState.xPos;
+      var hasNewY = this.state.yPos !== prevState.yPos;
+      var didToggleTooltip = this.state.showTooltip && this.state.showTooltip !== prevState.showTooltip;
+
+      if ( (hasNewIndex && hasNewStep) || didToggleTooltip || hasNewX || hasNewY ) {
         this._renderLayer();
-      } else {
+      } else if ( !hasNewStep ) {
         this.completionCallback();
         this._unrenderLayer();
       }
@@ -58,30 +66,29 @@ module.exports = function(settings, done) {
         document.body.appendChild(this._target);
         this._renderLayer();
       }
-      $(window).on('resize', this.componentDidUpdate.bind(this));
+      $(window).on('resize', this.calculatePlacement);
     },
 
     componentWillUnmount: function() {
       this._unrenderLayer();
       document.body.removeChild(this._target);
-      $(window).off('resize', this.componentDidUpdate.bind(this));
+      $(window).off('resize', this.calculatePlacement);
     },
 
-    preventWindowOverflow: function(type, value, axis) {
+    preventWindowOverflow: function(value, axis, elWidth, elHeight) {
       var winWidth = parseInt($(window).width());
       var docHeight = parseInt($(document).height());
-      var sizeVariable = type.toLowerCase() === 'indicator' ? this.settings.indicatorSize : this.settings.tooltipWidth;
 
       if ( axis.toLowerCase() === 'x' ) {
-        if ( value + sizeVariable > winWidth ) {
-          value = winWidth - sizeVariable;
-        } else if ( value - sizeVariable/2 < 0 ) {
+        if ( value + elWidth > winWidth ) {
+          value = winWidth - elWidth;
+        } else if ( value < 0 ) {
           value = 0;
         }
       } else if ( axis.toLowerCase() === 'y' ) {
-        if ( value + sizeVariable/2 > docHeight ) {
-          value = docHeight - sizeVariable;
-        } else if ( value - sizeVariable/2 < 0 ) {
+        if ( value + elHeight > docHeight ) {
+          value = docHeight - elHeight;
+        } else if ( value < 0 ) {
           value = 0;
         }
       }
@@ -89,60 +96,47 @@ module.exports = function(settings, done) {
       return value;
     },
 
-    calculatePlacement: function(step, $element) {
-      var offset = $element.offset();
-      var width = $element.width();
-      var height = $element.height();
+    calculatePlacement: function() {
+      var step = this.settings.steps[this.state.currentIndex];
+      var $target = $(step.element);
+      var offset = $target.offset();
+      var targetWidth = $target.outerWidth();
+      var targetHeight = $target.outerHeight();
       var position = step.position.toLowerCase();
       var topRegex = new RegExp('top', 'gi');
       var bottomRegex = new RegExp('bottom', 'gi');
       var leftRegex = new RegExp('left', 'gi');
       var rightRegex = new RegExp('right', 'gi');
+      var $element = this.state.showTooltip ? $('.tour-tooltip') : $('.tour-indicator');
+      var elWidth = $element.outerWidth();
+      var elHeight = $element.outerHeight();
       var placement = {
-        indicator: {
-          x: 0,
-          y: 0
-        },
-        tooltip: {
-          x: 0,
-          y: 0
-        }
+        x: -1000,
+        y: -1000
       };
 
-      // Calculate x positions
+      // Calculate x position
       if ( leftRegex.test(position) ) {
-        placement.indicator.x = offset.left - this.settings.indicatorSize/2;
-        placement.tooltip.y = offset.top - this.settings.tooltipWidth/4;
+        placement.x = offset.left - elWidth/2;
       } else if ( rightRegex.test(position) ) {
-        placement.indicator.x = offset.left + width - this.settings.indicatorSize/2;
-        placement.tooltip.x = offset.left + width - this.settings.tooltipWidth/2;
+        placement.x = offset.left + targetWidth - elWidth/2;
       } else {
-        placement.indicator.x = offset.left + width/2 - this.settings.indicatorSize/2;
-        placement.tooltip.x = offset.left + width/2 - this.settings.tooltipWidth/2;
+        placement.x = offset.left + targetWidth/2 - elWidth/2;
       }
 
-      // Calculate y positions
+      // Calculate y position
       if ( topRegex.test(position) ) {
-        placement.indicator.y = offset.top - this.settings.indicatorSize/2;
-        placement.tooltip.y = offset.top - this.settings.tooltipWidth/4;
+        placement.y = offset.top - elHeight/2;
       } else if ( bottomRegex.test(position) ) {
-        placement.indicator.y = offset.top + height - this.settings.indicatorSize/2;
-        placement.tooltip.y = offset.top + height - this.settings.tooltipWidth/4;
+        placement.y = offset.top + targetHeight - elHeight/2;
       } else {
-        placement.indicator.y = offset.top + height/2 - this.settings.indicatorSize/2;
-        placement.tooltip.y = offset.top + height/2 - this.settings.tooltipWidth/4;
+        placement.y = offset.top + targetHeight/2 - elHeight/2;
       }
 
-      return {
-        indicator: {
-          x: this.preventWindowOverflow('indicator', placement.indicator.x, 'x'),
-          y: this.preventWindowOverflow('indicator', placement.indicator.y, 'y')
-        },
-        tooltip: {
-          x: this.preventWindowOverflow('tooltip', placement.tooltip.x, 'x'),
-          y: this.preventWindowOverflow('tooltip', placement.tooltip.y, 'y')
-        }
-      };
+      this.setState({
+        xPos: this.preventWindowOverflow(placement.x, 'x', elWidth, elHeight),
+        yPos: this.preventWindowOverflow(placement.y, 'x', elWidth, elHeight)
+      });
     },
 
     handleIndicatorClick: function(evt) {
@@ -175,25 +169,24 @@ module.exports = function(settings, done) {
       var currentStep = this.settings.steps[this.state.currentIndex];
       var $target = $(currentStep.element);
       var cssPosition = $target.css('position');
-      var placement = this.calculatePlacement(currentStep, $target);
 
-      if ( this.state.showTooltip ) {
-        element = (
-          React.createElement(Tooltip, {cssPosition: cssPosition, 
-                   xPos: placement.tooltip.x, 
-                   yPos: placement.tooltip.y, 
-                   width: this.settings.tooltipWidth, 
-                   text: currentStep.text, 
-                   closeTooltip: this.closeTooltip})
-        );
-      } else {
-        element = (
-          React.createElement(Indicator, {cssPosition: cssPosition, 
-                     xPos: placement.indicator.x, 
-                     yPos: placement.indicator.y, 
-                     size: this.settings.indicatorSize, 
-                     handleIndicatorClick: this.handleIndicatorClick})
-        );
+      if ( $target && $target.length ) {
+        if ( this.state.showTooltip ) {
+          element = (
+            React.createElement(Tooltip, {cssPosition: cssPosition, 
+                     xPos: this.state.xPos, 
+                     yPos: this.state.yPos, 
+                     text: currentStep.text, 
+                     closeTooltip: this.closeTooltip})
+          );
+        } else {
+          element = (
+            React.createElement(Indicator, {cssPosition: cssPosition, 
+                       xPos: this.state.xPos, 
+                       yPos: this.state.yPos, 
+                       handleIndicatorClick: this.handleIndicatorClick})
+          );
+        }
       }
 
       return element;

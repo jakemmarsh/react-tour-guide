@@ -17,10 +17,6 @@ var Tooltip = React.createClass({displayName: "Tooltip",
       React.PropTypes.number,
       React.PropTypes.string
     ]).isRequired,
-    width: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
-    ]).isRequired,
     text: React.PropTypes.string.isRequired,
     closeTooltip: React.PropTypes.func.isRequired
   },
@@ -28,8 +24,8 @@ var Tooltip = React.createClass({displayName: "Tooltip",
   getDefaultProps: function() {
     return {
       cssPosition: 'absolute',
-      xPos: 0,
-      yPos: 0,
+      xPos: -1000,
+      yPos: -1000,
       text: ''
     };
   },
@@ -38,15 +34,14 @@ var Tooltip = React.createClass({displayName: "Tooltip",
     var styles = {
       'position': this.props.cssPosition === 'fixed' ? 'fixed' : 'absolute',
       'top': this.props.yPos,
-      'left': this.props.xPos,
-      'width': this.props.width
+      'left': this.props.xPos
     };
 
     return (
       React.createElement("div", null, 
         React.createElement("div", {className: "tour-backdrop", onClick: this.props.closeTooltip}), 
         React.createElement("div", {className: "tour-tooltip", style: styles}, 
-          React.createElement("p", null, this.props.text), 
+          React.createElement("p", null, this.props.text || ''), 
           React.createElement("div", {className: "tour-btn close", onClick: this.props.closeTooltip}, "Close")
         )
       )
