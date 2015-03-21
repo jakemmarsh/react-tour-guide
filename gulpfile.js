@@ -4,6 +4,7 @@ var gulp        = require('gulp');
 var del         = require('del');
 var react       = require('gulp-react');
 var runSequence = require('run-sequence');
+var stripDebug  = require('gulp-strip-debug');
 
 gulp.task('clean', function() {
 
@@ -22,6 +23,7 @@ gulp.task('scripts', function() {
 
   return gulp.src('./lib/js/**/*.js')
   .pipe(react())
+  .pipe(stripDebug())
   .pipe(gulp.dest('./dist/js/'));
 
 });
