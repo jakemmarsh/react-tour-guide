@@ -47,4 +47,4 @@ var Tooltip = React.createClass({displayName: "Tooltip",
 
 });
 
-module.exports = React.createFactory(Tooltip);
+module.exports = Tooltip;

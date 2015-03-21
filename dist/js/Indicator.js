@@ -39,4 +39,4 @@ var Indicator = React.createClass({displayName: "Indicator",
 
 });
 
-module.exports = React.createFactory(Indicator);
+module.exports = Indicator;
