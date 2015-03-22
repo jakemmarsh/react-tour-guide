@@ -45,10 +45,12 @@ var App = React.createClass({
 
 ### Options
 
-A Javascript object is passed to the `TourGuideMixin` to specify options, as well as the steps of your tour as an array. The options are:
+A Javascript object is passed to the `TourGuideMixin` to specify options, as well as the steps of your tour as an array (there is also a method to define these asynchronously, discussed below). The options are:
 
 - `startIndex` (int): the index from which to begin the steps of the tour. This can be retrieved and saved via `getUserTourProgress` (discussed below), in order to be specified when a user returns. Defaults to `0`.
 - `scrollToSteps` (bool): if true, the page will be automatically scrolled to the next indicator (if one exists) after a tooltip is dismissed. Defaults to `true`.
+- `steps` (array): the array of steps to be included in your tour. Defaults to an empty array.
+
 
 Each "step" in the array represents one indicator and tooltip that a user must click through in the guided tour. A step has the following structure:
 
