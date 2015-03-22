@@ -72,9 +72,15 @@ An optional callback may be passed as the second parameter to `TourGuideMixin`, 
 
 ---
 
-### Getting the User's Current Progress
+### Methods
 
-Upon including the mixin, the function `getUserTourProgress` will be available to your component. At any point, this method can be called to retrieve information about the current user's progress through the guided tour. The object returned looks like this:
+##### `setTourSteps(steps, cb)`
+
+This function is intended to provide you with a method to asynchronously define your steps (if they need to be fetched from a database, etc.) It takes a list of steps (of the form discussed earlier), along with an optional callback function as parameters. **This will completely overwrite any existing steps or progress**. Once the state is updated, the callback function will be invoked.
+
+##### `getUserTourProgress()`
+
+Upon including the mixin, this will be available to your component. At any point, this method can be called to retrieve information about the current user's progress through the guided tour. The object returned looks like this:
 
 ```json
 {
