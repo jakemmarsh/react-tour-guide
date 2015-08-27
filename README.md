@@ -41,6 +41,15 @@ var App = React.createClass({
 });
 ```
 
+If you're going to initialize the mixin without steps and add them later asynchronously, set your `startIndex` to a negative value
+```javascript
+...
+startIndex: -1,
+steps: []
+...
+
+```
+
 ---
 
 ### Options
