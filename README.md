@@ -19,7 +19,8 @@ var tour = {
     {
       text: 'This is the first step in the tour.',
       element: 'header',
-      position: 'bottom'
+      position: 'bottom',
+      closeButtonText: 'Next'
     },
     {
       text: 'This is the second step in the tour.',
@@ -67,7 +68,8 @@ Each "step" in the array represents one indicator and tooltip that a user must c
 {
   "text": "The helpful tip or information the user should read at this step.",
   "element": "A jQuery selector for the element which the step relates to.",
-  "position": "Where to position the indicator in relation to the element."
+  "position": "Where to position the indicator in relation to the element.",
+  "closeButtonText": "An optional string to be used as the text for the tooltip close button."
 }
 ```
 
