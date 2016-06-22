@@ -27,5 +27,3 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# Distro files
-dist
