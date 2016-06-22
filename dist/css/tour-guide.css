@@ -1,0 +1,154 @@
+.tour-indicator {
+  height: 30px;
+  width: 30px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+
+  background-color: #3f94d0;
+  cursor: pointer;
+
+  /* Animate */
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-out;
+  -moz-animation-name: pulse;
+  -moz-animation-duration: 1.5s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: ease-out;
+  -o-animation-name: pulse;
+  -o-animation-duration: 1.5s;
+  -o-animation-iteration-count: infinite;
+  -o-animation-timing-function: ease-out;
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+}
+
+/* WebKit/Safari and Chrome */
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  80% {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
+
+  100% {
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+/* Gecko/Firefox */
+@-moz-keyframes pulse {
+  0% {
+    -moz-transform: scale(0.3);
+    transform: scale(0.3);
+    opacity: 0.5;
+  }
+
+  80% {
+    -moz-transform: scale(1.5);
+    transform: scale(1.5);
+    opacity: 0;
+  }
+
+  100% {
+    -moz-transform: scale(2.5);
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+/* Presto/Opera */
+@-o-keyframes pulse {
+  0% {
+    -o-transform: scale(0.3);
+    transform: scale(0.3);
+    opacity: 0.5;
+  }
+
+  80% {
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
+    opacity: 0;
+  }
+
+  100% {
+    -o-transform: scale(2.5);
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+/* Standard */
+@keyframes pulse {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.5;
+  }
+
+  80% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.tour-backdrop {
+  z-index: 998; /* one below z-index of tour-toolip (999) */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  text-align: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.tour-tooltip {
+  z-index: 999;
+  width: 250px;
+  background-color: #ffffff;
+  color: #545454;
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 5px;
+  -webkit-box-shadow: 0 8px 6px -6px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 8px 6px -6px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 6px -6px rgba(0,0,0,0.4);
+}
+
+  .tour-tooltip p {
+    margin: 5px 3px;
+  }
+
+  .tour-tooltip .tour-btn.close {
+    cursor: pointer;
+    display: block;
+    width: auto;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 3px;
+    text-align: center;
+  }
+
+    .tour-tooltip .tour-btn.close:hover {
+      border-color: #3f94d0;
+      color: #3f94d0;
+    }
